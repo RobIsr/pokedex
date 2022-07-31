@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pokedex</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/4b0b858a14.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div id="app">
+        <!--Root element for the app-->
+        <div class="content">
+          <div id="pokemon_container"></div>
+          <div id="search_box">
+              <input id="search" placeholder="Enter pokemon name" type="text">
+              <button id="clear_btn">Clear</button>
+          </div>
+          <ul id="search_result_list"></ul>
+        </div>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
