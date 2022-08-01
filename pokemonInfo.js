@@ -13,7 +13,7 @@ export function renderPokemonImage(img_url, abilities) {
     abilities.forEach(element => {
         let ability = document.createElement("li");
 
-        ability.innerText = element.ability.name;
+        ability.innerText = element.move.name;
         ability.addEventListener("click", (event) => {
             // Convert name of ability to speach.
             let utter = new SpeechSynthesisUtterance();

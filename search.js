@@ -37,7 +37,7 @@ function renderSearchResults(arr) {
                 }).then(data => {
                     console.log(data);
                     clearImage();
-                    renderPokemonImage(data.sprites.front_default, data.abilities);
+                    renderPokemonImage(data.sprites.front_default, data.moves);
                     resultList.innerHTML = "";
                 });
             }
