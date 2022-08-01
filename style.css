@@ -90,6 +90,7 @@ button {
 }
 
 #search_result_list {
+    width: 100%;
     overflow-y: scroll;
 }
 
