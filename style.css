@@ -106,5 +106,7 @@ button {
         position: fixed;
         top: 0;
         max-height: 300px;
+        background-color: white;
+        z-index: 1000;
     }
 }
