@@ -1,9 +1,21 @@
-import { renderPokemonImage, clearImage } from "./pokemonInfo.js";
+import { renderPokemonImage } from "./pokemonInfo.js";
 
-function renderSearchResults(arr) {
-    console.log(arr);
-    let appDiv = document.getElementById("app");
-    let resultList = document.getElementById("search_result_list");
+import {
+    textToSpeach,
+    clearElement,
+    clearElementWithId
+} from "./utils.js";
+
+import { 
+    App,
+    SearchResultList,
+    SearchInput,
+    PokemonContainer
+} from "./const.js";
+
+export function renderSearchResults(arr) {
+    let appDiv = document.getElementById(App);
+    let resultList = document.getElementById(SearchResultList);
 
     arr.forEach(element => {
         let resultItem = document.createElement("li");
@@ -21,38 +33,23 @@ function renderSearchResults(arr) {
 
         /** Click listener for search result list item. */
         resultItem.addEventListener("click", (event) => {
-            let searchInput = document.getElementById("search");
+            let searchInput = document.getElementById(SearchInput);
 
             if (event.target.id === "listen") {
-                // Convert name text to speach.
-                let utter = new SpeechSynthesisUtterance();
-
-                utter.text = element.name;
-                window.speechSynthesis.speak(utter);
+                textToSpeach(element.name);
             } else {
                 searchInput.value = element.name;
                 /** Get and display image and detailed data for selected pokemon. */
                 fetch(new Request(`https://pokeapi.co/api/v2/pokemon/${element.name}`)).then(res => {
                     return res.json();
                 }).then(data => {
-                    console.log(data);
-                    clearImage();
+                    clearElementWithId(PokemonContainer);
                     renderPokemonImage(data.sprites.front_default, data.moves);
-                    resultList.innerHTML = "";
+                    clearElement(resultList);
                 });
             }
         });
     });
 
     appDiv.append(resultList);
-}
-
-export function search(pokemon_arr, search_string) {
-    let searchResults = pokemon_arr.results.filter(elem => elem.name.toLowerCase().includes(search_string.toLowerCase()));
-    
-    if (searchResults.length > 5) {
-        searchResults = searchResults.slice(0, 5);
-    }
-
-    renderSearchResults(searchResults);
 }

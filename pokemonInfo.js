@@ -1,6 +1,9 @@
+import { textToSpeach } from "./utils.js";
+import { PokemonContainer } from "./const.js";
+
 export function renderPokemonImage(img_url, abilities) {
     console.log(abilities);
-    let imgDiv = document.getElementById("pokemon_container");
+    let imgDiv = document.getElementById(PokemonContainer);
     let imageElem = document.createElement("img");
     let abilityList = document.createElement("ul");
 
@@ -15,12 +18,7 @@ export function renderPokemonImage(img_url, abilities) {
 
         ability.innerText = element.move.name;
         ability.addEventListener("click", (event) => {
-            // Convert name of ability to speach.
-            let utter = new SpeechSynthesisUtterance();
-
-            utter.lang = "en-US";
-            utter.text = event.target.innerText;
-            window.speechSynthesis.speak(utter);
+            textToSpeach(event.target.innerText);
         });
         abilityList.append(ability);
     });
@@ -31,10 +29,4 @@ export function renderPokemonImage(img_url, abilities) {
     attackHeader.innerText = "Attacker"
     imgDiv.append(attackHeader);
     imgDiv.append(abilityList);
-}
-
-export function clearImage() {
-    let imgDiv = document.getElementById("pokemon_container");
-
-    imgDiv.innerHTML = "";
 }

@@ -1,4 +1,12 @@
-import { search } from "./search.js";
+import { search, clearElement, clearValue } from "./utils.js";
+import { renderSearchResults } from "./search.js";
+import {
+    SearchInput,
+    SearchBox,
+    SearchResultList,
+    ClearButton,
+    PokemonContainer
+} from "./const.js";
 
 let allPokemons = [];
 
@@ -12,24 +20,26 @@ async function getPokemon() {
 }
 
 function initSearchBox() {
-    let searchBox = document.getElementById("search_box");
-    let searchInput = document.getElementById("search");
-    let clearBtn = document.getElementById("clear_btn");
-    let searchResultList = document.getElementById("search_result_list");
+    let searchBox = document.getElementById(SearchBox);
+    let searchInput = document.getElementById(SearchInput);
+    let clearBtn = document.getElementById(ClearButton);
+    let searchResultList = document.getElementById(SearchResultList);
 
     searchBox.addEventListener("input", (event) => {
         searchResultList.innerHTML = "";
         if (event.target.value != "") {
-            search(allPokemons, event.target.value);
+
+            let searchResult = search(allPokemons, event.target.value);
+            renderSearchResults(searchResult);
         }
     });
 
     clearBtn.addEventListener("click", () => {
-        let pokemonContainer = document.getElementById("pokemon_container");
+        let pokemonContainer = document.getElementById(PokemonContainer);
 
-        pokemonContainer.innerHTML = "";
-        searchInput.value = "";
-        searchResultList.innerHTML = "";
+        clearElement(pokemonContainer);
+        clearValue(searchInput);
+        clearElement(searchResultList);
     });
 }
 
